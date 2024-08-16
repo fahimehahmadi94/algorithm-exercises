@@ -5,8 +5,8 @@ Given an array of integers and a number, write a function called maxSubarraySum,
 
 Note that a subarray must consist of consecutive elements from the original array. In the first example below, [100, 200, 300] is a subarray of the original array, but [100, 300] is not.
 
-maxsubarraySum([100,200,300,400, 2) // 700
-maxSubarraySum([1,4,2,10,23,3,1,0,20, 4) // 39
+maxsubarraySum([100,200,300,4001, 2) // 700
+maxSubarraySum([1,4,2,10,23,3,1,0,201, 4) // 39
 maxSubarraySum([-3,4,0,-2,6, -11, 2) // 5
 maxSubarraySum([3,-2,7,-4,1,-1,4,-2,11,2) // 5
 maxSubarraySum([2,31, 3) // null
@@ -16,17 +16,26 @@ Time Complexity - O(N)
 Space Complexity - 0(1)
 **/
 
-function maxSubarraySum(array, targrt) {
-    // let counter = 0;
-    // for (let i = 0; i < array.length; i++) {
-    //     for (let j = 1; j < array.length; j++) {
-    //         let sum = array[i] + array[j];
+function maxSubarraySum(arr, num) {
+    if (arr.length < num) {
+        return null;
+    }
 
-    //         if (sum === targrt) {
-    //             console.log('okay');
-    //             return;
-    //         }
-    //     }
-    // }
+    let maxSum = 0;
+    let windowSum = 0;
+    let start = 0;
+
+    for (let i = 0; i < num; i++) {
+        windowSum += arr[i];
+    }
+
+    maxSum = windowSum;
+
+    for (let end = num; end < arr.length; end++) {
+        windowSum += arr[end] - arr[start];
+        start++;
+        maxSum = Math.max(maxSum, windowSum);
+    }
+
+    return maxSum;
 }
-maxSubarraySum([2, 31, 3], 2)
